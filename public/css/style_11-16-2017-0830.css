@@ -1,0 +1,21 @@
+label {
+	display: block;
+	margin: 5px 0;
+    color: aqua;
+}
+
+h2
+{
+    color: bisque;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+td,
+th {
+	padding: 5px;
+	border-bottom: 1px solid #aaa;
+}
