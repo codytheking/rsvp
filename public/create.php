@@ -69,6 +69,8 @@ if (isset($_POST['submit']) && $statement)
     <input type="submit" name="submit" value="Submit">
 </form>
 
+<br><br>
+
 <a href="/">Back to home</a>
 
 <?php require "templates/footer.php"; ?>

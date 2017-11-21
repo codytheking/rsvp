@@ -1,12 +1,12 @@
+body
+{
+    background-color: beige;
+    color: darkslategrey;
+}
+
 label {
 	display: block;
 	margin: 5px 0;
-    color: aqua;
-}
-
-h2
-{
-    color: bisque;
 }
 
 table {
@@ -14,8 +14,21 @@ table {
 	border-spacing: 0;
 }
 
-td,
-th {
+td, th {
 	padding: 5px;
 	border-bottom: 1px solid #aaa;
+}
+
+a:link
+{
+}
+
+a:visited
+{
+    color: darkslategray;
+}
+
+a:hover
+{
+    
 }

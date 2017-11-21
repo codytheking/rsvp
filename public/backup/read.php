@@ -32,7 +32,7 @@ if (isset($_POST['guests']))
         }
     */
     
-    try 
+    /*try 
 	{	
         $connection = new PDO($dsn, $username, $password, $options);
 
@@ -58,7 +58,7 @@ if (isset($_POST['guests']))
     catch(PDOException $error) 
     {
         echo $sql . "<br>" . $error->getMessage();
-    }
+    }*/
     
     
     
@@ -78,7 +78,7 @@ else if (isset($_POST['submit']))
 		$connection = new PDO($dsn, $username, $password, $options);
         
         /* Search for invite */
-		$sql = "SELECT * FROM users WHERE name = :name";
+		$sql = "SELECT * FROM `users` WHERE `name` = :name";
 		$name = $_POST['name'];
 		$statement = $connection->prepare($sql);
 		$statement->bindParam(':name', $name, PDO::PARAM_STR);
@@ -87,16 +87,17 @@ else if (isset($_POST['submit']))
 		$result = $statement->fetchAll();
         
         
-         
+        
+        
         /* Take email if name is found */
-        if ($result && $statement->rowCount() > 0) 
+        if ($statement->rowCount() > 0) 
         {
             $id = $result[0]["id"];
-            $sql = "UPDATE users SET `email` = :email WHERE `id` = $id";
+            $sql = "UPDATE `users` SET `email` = :email WHERE `id` = $id";
             $email = $_POST['email'];
             $statement = $connection->prepare($sql);
             $statement->execute(array($email));
-        }
+        } 
 	}
 	
 	catch(PDOException $error) 
@@ -106,11 +107,30 @@ else if (isset($_POST['submit']))
  
     if (isset($_POST['submit'])) 
     {
-        if ($result && $statement->rowCount() > 0) 
+        if ($statement->rowCount() > 0) 
         { ?>
             <h2>Guests and dinner selections</h2>
+            <p style="margin-top: -15px; margin-bottom: 20px;"><em>Please, family and spouses only.</em></p>
             <!-- Form for each allotted guest -->
             <form action="" method="post">
+                
+                <!-- Food option and age for invitee -->
+                <label for="name"><?php echo $result[0]["name"]; ?></label>
+                <select required>
+                    <option value="None">Not Coming</option>
+                    <option value="Steak">Steak</option>
+                    <option value="Chicken">Chicken</option>
+                    <option value="Fish">Fish</option>
+                    <option value="Vegetarian">Vegetarian</option>
+                </select>
+                <select required>
+                    <option value="">Age</option>
+                    <option value="over21">21+</option>
+                    <option value="under21">13 - 20</option>
+                    <option value="under12">4 - 12</option>
+                    <option value="under4">Under 4</option>
+                </select>
+                
                 <?php 
                 $c = 1;
                 $guest = "guest" . $c;
@@ -129,6 +149,13 @@ else if (isset($_POST['submit']))
                         <option value="Chicken">Chicken</option>
                         <option value="Fish">Fish</option>
                         <option value="Vegetarian">Vegetarian</option>
+                    </select>
+                    <select required>
+                        <option value="">Age</option>
+                        <option value="over21">21+</option>
+                        <option value="under21">13 - 20</option>
+                        <option value="under12">4 - 12</option>
+                        <option value="under4">Under 4</option>
                     </select>
 
                 <?php
