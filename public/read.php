@@ -32,7 +32,7 @@ if (isset($_POST['guests']))
         }
     */
     
-    try 
+    /*try 
 	{	
         $connection = new PDO($dsn, $username, $password, $options);
 
@@ -58,7 +58,7 @@ if (isset($_POST['guests']))
     catch(PDOException $error) 
     {
         echo $sql . "<br>" . $error->getMessage();
-    }
+    }*/
     
     
     
@@ -78,7 +78,7 @@ else if (isset($_POST['submit']))
 		$connection = new PDO($dsn, $username, $password, $options);
         
         /* Search for invite */
-		$sql = "SELECT * FROM users WHERE name = :name";
+		$sql = "SELECT * FROM `users` WHERE `name` = :name";
 		$name = $_POST['name'];
 		$statement = $connection->prepare($sql);
 		$statement->bindParam(':name', $name, PDO::PARAM_STR);
@@ -87,16 +87,17 @@ else if (isset($_POST['submit']))
 		$result = $statement->fetchAll();
         
         
-         
+        
+        
         /* Take email if name is found */
-        if ($result && $statement->rowCount() > 0) 
+        if ($statement->rowCount() > 0) 
         {
             $id = $result[0]["id"];
-            $sql = "UPDATE users SET `email` = :email WHERE `id` = $id";
+            $sql = "UPDATE `users` SET `email` = :email WHERE `id` = $id";
             $email = $_POST['email'];
             $statement = $connection->prepare($sql);
             $statement->execute(array($email));
-        }
+        } 
 	}
 	
 	catch(PDOException $error) 
@@ -106,38 +107,108 @@ else if (isset($_POST['submit']))
  
     if (isset($_POST['submit'])) 
     {
-        if ($result && $statement->rowCount() > 0) 
+        if ($statement->rowCount() > 0) 
         { ?>
+
             <h2>Guests and dinner selections</h2>
+            <p style="margin-top: -15px; margin-bottom: 20px;"><em>Please, family and spouses only.</em></p>
             <!-- Form for each allotted guest -->
             <form action="" method="post">
+                
+                <!-- Name, food, and age -->
+                <div class="rsvp-rows container">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <label for="name">First and Last Name</label>
+                            <?php echo "<h6>" . $result[0]["name"] . "</h6>"; ?>
+                        </div>
+                        <div class="col-xs-4">
+                            <label for="entree">Entree</label>
+                            <select required>
+                                <option value="None">Not Coming</option>
+                                <option value="Steak">Steak</option>
+                                <option value="Chicken">Chicken</option>
+                                <option value="Fish">Fish</option>
+                                <option value="Vegetarian">Vegetarian</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-4">
+                            <label for="age">Age</label>
+                            <select required>
+                                <option value="None">Not Coming</option>
+                                <option value="over21">21+ years old</option>
+                                <option value="under21">13 - 20</option>
+                                <option value="under12">4 - 12</option>
+                                <option value="under4">Under 4</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <!-- Food option and age for invitee -->
                 <?php 
                 $c = 1;
                 $guest = "guest" . $c;
 
                 /* Display form for each guest listed in database */
+                
                 while(strcmp($result[0][$guest], "") !== 0 && $c < 4)
                 {
-                    $guest = "guest" . $c;
                     ?>
 
-                    <label for="<?php echo $guest; ?>">First and Last Name</label>
-                    <input type="text" id="<?php echo $guest; ?>" name="<?php echo $guest; ?>" required>
-                    <select required>
-                        <option value="None">Not Coming</option>
-                        <option value="Steak">Steak</option>
-                        <option value="Chicken">Chicken</option>
-                        <option value="Fish">Fish</option>
-                        <option value="Vegetarian">Vegetarian</option>
-                    </select>
+                    <!-- Columns for name, entree, and age -->
+                    <div class="rsvp-rows container">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <label for="<?php echo $guest; ?>">First and Last Name</label>
+                            <input type="text" id="<?php echo $guest; ?>" name="<?php echo $guest;?>">
+                        </div>
+                            <div class="col-xs-4">
+                                <label for="entree">Entree</label>
+                                <select required>
+                                    <option value="None">Not Coming</option>
+                                    <option value="Steak">Steak</option>
+                                    <option value="Chicken">Chicken</option>
+                                    <option value="Fish">Fish</option>
+                                    <option value="Vegetarian">Vegetarian</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-4">
+                                <label for="age">Age</label>
+                                <select required>
+                                    <option value="None">Not Coming</option>
+                                    <option value="over21">21+ years old</option>
+                                    <option value="under21">13 - 20</option>
+                                    <option value="under12">4 - 12</option>
+                                    <option value="under4">Under 4</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
 
                 <?php
-                    $c++; 
+                    $c++;
+                    $guest = "guest" . $c;
                 }
                 ?>
 
                 <br>
-                <input type="submit" name="guests" value="RSVP" style="display: block; margin-top: 10px;">
+                
+                <div class="rsvp-rows container">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <input type="submit" name="guests" value="RSVP" style="display: block; margin-top: 10px;">
+                        </div>
+                        <div class="col-xs-4">
+                            
+                        </div>
+                        <div class="col-xs-4">
+                            
+                        </div>
+                    </div>
+                </div>
+        
             </form>
         <?php
         }
@@ -158,8 +229,6 @@ else
     <form method="post">
         <label for="name">First and Last Name</label>
         <input type="text" id="name" name="name">
-        <label for="email">Email</label>
-        <input type="text" id="email" name="email">
         <input type="submit" name="submit" value="RSVP">
     </form>
 <?php

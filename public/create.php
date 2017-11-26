@@ -19,7 +19,6 @@ if (isset($_POST['submit']))
 
         $new_user = array(
             "name" => $_POST['name'],
-            "email"     => $_POST['email'],
             "guest1"    => $_POST['guest1'],
             "guest2"    => $_POST['guest2'],
             "guest3"    => $_POST['guest3']
@@ -58,8 +57,6 @@ if (isset($_POST['submit']) && $statement)
 <form method="post">
     <label for="name">First and Last Name</label>
     <input type="text" name="name" id="name">
-    <label for="email">Email Address</label>
-    <input type="text" name="email" id="email">
     <label for="guest1">Guest #1</label>
     <input type="text" name="guest1" id="guest1">
     <label for="guest2">Guest #2</label>

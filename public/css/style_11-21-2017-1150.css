@@ -2,11 +2,12 @@ body
 {
     background-color: beige;
     color: darkslategrey;
+    margin: 20px;
 }
 
 label {
 	display: block;
-	margin: 5px 0;
+	margin-top: 15px;
 }
 
 table {
@@ -21,14 +22,26 @@ td, th {
 
 a:link
 {
+    text-decoration: underline;
 }
 
 a:visited
 {
     color: darkslategray;
+    text-decoration: underline;
 }
 
 a:hover
+{
+    text-decoration: none;
+}
+
+a:active
+{
+    text-decoration: underline;
+}
+
+.rsvp-rows
 {
     
 }
