@@ -13,7 +13,7 @@ try
 
     $connection = new PDO($dsn, $username, $password, $options);
 
-    $sql = "SELECT * FROM users";
+    $sql = "SELECT * FROM inglisttable";
 
     $statement = $connection->prepare($sql);
     $statement->execute();

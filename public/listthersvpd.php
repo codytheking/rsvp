@@ -38,6 +38,8 @@ if ($result && $statement->rowCount() > 0)
             <tr>
                 <th>#</th>
                 <th>Name</th>
+                <th>Food</th>
+                <th>Age</th>
                 <th>Guest #1</th>
                 <th>Food</th>
                 <th>Age</th>
@@ -57,15 +59,17 @@ if ($result && $statement->rowCount() > 0)
         <tr>
             <td><?php echo escape($row["id"]); ?></td>
             <td><?php echo escape($row["name"]); ?></td>
+            <td><?php echo escape($row["food"]); ?></td>
+            <td><?php echo escape($row["age"]); ?></td>
             <td><?php echo escape($row["guest1"]); ?></td>
-            <td><?php echo escape($row["guest1Food"]); ?></td>
-            <td><?php echo escape($row["guest1Age"]); ?></td>
+            <td><?php echo escape($row["guest1food"]); ?></td>
+            <td><?php echo escape($row["guest1age"]); ?></td>
             <td><?php echo escape($row["guest2"]); ?></td>
-            <td><?php echo escape($row["guest2Food"]); ?></td>
-            <td><?php echo escape($row["guest2Age"]); ?></td>
+            <td><?php echo escape($row["guest2food"]); ?></td>
+            <td><?php echo escape($row["guest2age"]); ?></td>
             <td><?php echo escape($row["guest3"]); ?></td>
-            <td><?php echo escape($row["guest3Food"]); ?></td>
-            <td><?php echo escape($row["guest3Age"]); ?></td>
+            <td><?php echo escape($row["guest3food"]); ?></td>
+            <td><?php echo escape($row["guest3age"]); ?></td>
             <td><?php echo escape($row["comments"]); ?></td>
         </tr>
     <?php 
